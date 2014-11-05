@@ -1,0 +1,142 @@
+/**
+ * Style with LESS.
+ */
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+
+/** --------------------------------------------------------------
+ * Reset. http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126
+ *
+ */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,
+figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,
+time,mark,audio,video{margin:0;padding:0;border:0;font-size:100.01%;font:inherit;vertical-align:baseline;}
+body{line-height:1;}
+ol,ul{list-style: none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+
+
+/** --------------------------------------------------------------
+ * HTML5 elements.
+ *
+ */
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
+audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}
+audio:not([controls]){display:none;}
+[hidden]{display:none;}
+
+
+/** --------------------------------------------------------------
+ * The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
+ *
+ */
+.clearfix(){*zoom:1;
+  &:before, &:after {content:"";display:table;}
+  &:after {clear:both;}
+}
+.wrapper{.clearfix();}
+
+
+/** --------------------------------------------------------------
+ * Typography.
+ *
+ */
+@font-family-helvetica: Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-monospace: monospace;
+@font-family-roboto: 'Raleway', sans-serif;
+@magic-number: 22px; /* 16px - 100%/1.375 */
+body{color:#222;font:100.01%/1.375 @font-family-roboto;}
+p{margin-bottom:@magic-number;}
+b,strong{font-weight:bold;}
+i,em{font-style:italic;}
+pre,code{font:1em/1.375 @font-family-monospace;}
+
+/* headers */
+h1{font-size:2.375em;line-height:1.1579;margin-bottom:@magic-number;}
+
+/* Lists */
+li ul,li ol{margin:0;}
+ul,ol{margin:0.6875em 1.5em 1.375em 0;padding-left:1.5em;}
+ul{list-style-type:disc;}
+ol{list-style-type:decimal;}
+
+/* Tables. Because of the need for padding on TH and TD, the vertical rhythm
+  on table cells has to be 33px, instead of the standard 22px or 44px
+  of other elements. */
+table{margin-bottom:1.375em;width:100%;}
+caption{text-align:left;font-style:italic;}
+thead{border-bottom:2px solid #222;}
+th{vertical-align:bottom;font-weight:bold;text-align:left;}
+th,td{padding:5px 10px 5px 5px;}
+tbody tr:nth-child(even) td, tbody tr.even td {}
+tbody tr{border-bottom:1px solid #eee;
+  &:hover{color:#000;}
+}
+tfoot{font-style:italic;}
+
+
+
+/** --------------------------------------------------------------
+ * Colors.
+ *
+ */
+@black:#000;
+@blue:#2196F3;
+@green:#46a546;
+@red:#9d261d;
+@yellow:#ffc40d;
+@orange:#f89406;
+@grey:#555;
+@greyLight:#999;
+@greyLighter:#eee;
+@teal: #009688;
+@cyan: #00BCD4;
+
+.black{color:@black;}
+.blue{color:@blue;}
+.green{color:@green;}
+.red{color:@red;}
+.yellow{color:@yellow;}
+.orange{color:@orange;}
+.teal{color:@teal;}
+.cyan{color:@cyan;}
+
+/** --------------------------------------------------------------
+ * Page layout.
+ *
+ */
+body {
+    max-width:960px;
+    margin:0px auto;
+}
+
+
+/** --------------------------------------------------------------
+ * Boxes.
+ *
+ */
+#flash{
+    margin:2em auto;
+    background-color:fadeout(@greyLighter,5%);
+    min-height:10em;
+    border:1px solid @greyLight;
+    padding:1em;
+    .border-radius(1px);
+    .box-shadow(5px 5px 2px 0px @cyan);
+}
+
+
+/** --------------------------------------------------------------
+ * Footer.
+ *
+ */
+@color:@greyLight;
+#footer{border-top:1px solid @color;font-size:smaller;color:@color;margin-top:@magic-number;padding-top:0.5em;
+  a{color:@color;text-decoration:none;
+    &:hover{color:darken(@color,40%);text-decoration:underline;}
+  }
+}

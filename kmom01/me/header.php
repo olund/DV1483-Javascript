@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title><?=isset($title) ? $title : 'Me-page' ?></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="favicon.ico" rel="icon" type="image/x-icon" />
+        <link rel="stylesheet/less" type="text/css" href="less/style.less">
+
+        <script type="text/javascript">
+            less = {
+              env: 'development',
+              dumpLineNumbers: "all"
+            };
+        </script>
+        <script src="/~heoa13/js/less.min.js"></script>
+        <script src="/~heoa13/js/modernizr.js"></script>
+    </head>
+    <body>
+
+
+
+
+    <main>
+        <nav class="top-nav wrapper">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <?php
+                    foreach (read('reports/') as $key => $value) {
+                        echo "<li>";
+                        if (getFile() != "" && $key == str_replace('.md', '', getFile())):
+                            echo "<a class='selected' href='{$value}'>{$key}</a>";
+                        else:
+                            echo "<a href='{$value}'>{$key}</a>";
+                        endif;
+                        echo "</li>";
+                    }
+                ?>
+            </ul>
+        </nav>
