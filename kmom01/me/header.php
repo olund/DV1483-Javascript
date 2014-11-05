@@ -19,24 +19,16 @@
         <script src="/~heoa13/js/modernizr.js"></script>
     </head>
     <body>
+    <nav class="top-nav">
+        <section class="title">
+            Javascript - Henrik Ölund
+        </section>
 
-
-
+        <ul class="right">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="report.php">Reports</a></li>
+        </ul>
+    </nav>
 
     <main>
-        <nav class="top-nav wrapper">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <?php
-                    foreach (read('reports/') as $key => $value) {
-                        echo "<li>";
-                        if (getFile() != "" && $key == str_replace('.md', '', getFile())):
-                            echo "<a class='selected' href='{$value}'>{$key}</a>";
-                        else:
-                            echo "<a href='{$value}'>{$key}</a>";
-                        endif;
-                        echo "</li>";
-                    }
-                ?>
-            </ul>
-        </nav>
+

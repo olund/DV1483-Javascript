@@ -1,5 +1,5 @@
 <?php
-    $d = explode('/', trim($path, '/'));
+    $d = explode('/', trim(__DIR__, '/'));
     $srcUrl = '../source.php?dir=' . end($d) . '&amp;file=' . basename($_SERVER['PHP_SELF']) . '#file';
 ?>
 
@@ -28,7 +28,7 @@
         <a href='http://validator.w3.org/unicorn/check?ucn_uri=referer&amp;ucn_task=conformance'>Unicorn</a>
         <a href='http://csslint.net/'>CSS-lint</a>
         <a href='http://jslint.com/'>JS-lint</a>
-    </nav class="cyan">
+    </nav>
 
     <nav class="cyan">Verktyg:
         <a href='http://jsfiddle.net/user/olund/fiddles/'>Olund-fiddles</a>

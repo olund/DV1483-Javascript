@@ -29,6 +29,7 @@ function read($dir, $wantMarkdown = true)
             closedir($dh);
         }
     }
+    ksort($ret);
     return $ret;
 }
 
