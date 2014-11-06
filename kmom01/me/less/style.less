@@ -7,6 +7,15 @@
 // Responsiv
 @import '../less/responsive.less';
 
+// Github markdown style
+@import '../less/github-markdown.less';
+
+.markdown-body {
+    min-width: 200px;
+    max-width: 790px;
+    margin: 0 auto;
+    padding: 30px;
+}
 
 a, a:visited {
     color: inherit;
@@ -24,7 +33,13 @@ body {
     background: #E5E5E5;
 }
 
+ul.report {
+    padding-top: 15px;
+}
 
+.report {
+    .clearfix();
+}
 
 .wrapper {
     margin: 2em auto;
@@ -66,6 +81,7 @@ nav.top-nav {
 
         &:hover {
             color: darken(#FFFFFF,40%);
+            border-bottom: 3px solid #FFFFFF;
         }
         &:selected {
             font-weight: bold;
