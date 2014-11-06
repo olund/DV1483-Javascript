@@ -60,3 +60,7 @@ BTW Jane, klaga inte på mina absoluta länkar
 
 
 En random rolig sak är att CSS validerar eftersom den hittar ingen stylesheet.
+
+GITHUB: https://github.com/olund/DV1483-Javascript
+Redovisning: http://www.student.bth.se/~heoa13/js/kmom01/me/report.php?file=kmom01.md
+Me-sidan: http://www.student.bth.se/~heoa13/js/kmom01/me/index.php
