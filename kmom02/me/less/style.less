@@ -1,0 +1,130 @@
+// Mixins
+@import '../less/mixins.less';
+
+// Base
+@import '../less/base.less';
+
+// Responsiv
+@import '../less/responsive.less';
+
+// Github markdown style
+@import '../less/github-markdown.less';
+
+.markdown-body {
+    min-width: 200px;
+    max-width: 790px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+a, a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+a.selected {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+body {
+    background: #E5E5E5;
+}
+
+ul.report {
+    padding-top: 15px;
+}
+
+.report {
+    .clearfix();
+}
+
+.wrapper {
+    margin: 2em auto;
+    width: 960px;
+}
+
+.right { float: right; }
+.left { float: left; }
+
+
+nav.top-nav {
+    background: @teal;
+    color: #FFFFFF;
+    width: 100%;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    height: 256px;
+
+    .title {
+        font-size: 2em;
+        margin-left: 20px;
+        padding-top: 50px;
+    }
+
+    li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    ul {
+        padding-top: 140px;
+        padding-right: 60px;
+        margin: 0;
+    }
+    a {
+        margin-right:3px;
+        text-decoration: none;
+
+        &:hover {
+            color: darken(#FFFFFF,40%);
+            border-bottom: 3px solid #FFFFFF;
+        }
+        &:selected {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+}
+
+
+@color:@greyLight;
+
+#footer {
+    margin: 20px;
+    border-top: 1px solid @color;
+    font-size: smaller;
+    color: @color;
+    margin-top: @magic-number;
+    padding-top: 0.5em;
+    a {
+        color: @color;
+        text-decoration:none;
+        &:hover{
+            color:darken(@color,40%);
+            text-decoration:underline;
+        }
+    }
+}
+
+
+ul {
+    list-style-type: none;
+    padding-left: 3px;
+}
+
+.card {
+    margin: 2em auto;
+    min-height: 10em;
+    padding: 20px;
+    background: #FFFFFF;
+    padding:1em;
+    /*width: 100%;*/
+
+    .card-header {
+        margin-bottom: 10px;
+    }
+}
