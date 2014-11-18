@@ -6,7 +6,7 @@ $(document).ready(function () {
         log         = document.getElementById('log'),
         table       = document.getElementById('table'),
         bankroll    = document.getElementById('bankroll'),
-        color       = document.getElementById('color'),
+        color       = document.getElementById('colors'),
         bet         = document.getElementById('bet');
 
     console.log('Starting');
@@ -59,8 +59,10 @@ $(document).ready(function () {
     }
 
 
-    button.addEventListener('click', function () {
-        var current = print(log, '&ndash; Bet is ' + bet.value + ' spinning the wheel&hellip;'),
+    button.addEventListener('click', function (event) {
+        event.preventDefault();
+
+	    var current = print(log, '&ndash; Bet is ' + bet.value + ' spinning the wheel&hellip;'),
             times = 10, results, step = 0, animateSpin;
 
         animateSpin = function () {
@@ -77,7 +79,7 @@ $(document).ready(function () {
             step += 1;
 
             if (step < times) {
-                window.setTimeout(animateSpin, 500);
+                window.setTimeout(animateSpin, 100);
             } else {
                 winColor = getColor(results[step-1]);
                 betColor = color.value;
@@ -96,7 +98,7 @@ $(document).ready(function () {
         clearRouletteTable();
         bankroll.value = parseInt(bankroll.value, 10) - parseInt(bet.value, 10);
         results = spinWheel(10);
-        window.setTimeout(animateSpin, 500);
+        window.setTimeout(animateSpin, 100);
     }, false);
 
 
