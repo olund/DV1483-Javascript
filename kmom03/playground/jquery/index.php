@@ -19,11 +19,13 @@
 </div>
 
 <h2>Uppgift 3</h2>
+
 <div id='box3' class='box'>
-    <button id="btn">Klicka på mig</button>
-    <div>
-        <p id='asdf'></p>
-    </div>
+    <form>
+        <label>Colorcode in hex (#eee or #5c5c5c): <input id='box3_color' type='text' name='color' /></label>
+        <input id='box3_add' type='button' value='Add color' />
+    </form>
+    <p id='palette'>Color Palette:</p>
 </div>
 
 <?php
