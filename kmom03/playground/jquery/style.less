@@ -1,5 +1,8 @@
 @import '../template/base.less';
 
+.box {
+
+}
 
 .invert {
     color: #f00;
@@ -17,5 +20,107 @@ div.palette {
 
     &:hover {
         cursor:crosshair;
+    }
+}
+
+#box4 {
+    .clearfix();
+    margin-top: 100px;
+}
+
+#js {
+    width: 300px;
+    height: 300px;
+}
+
+#overlay {
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background:black url(img/loader.gif) no-repeat scroll center center;
+}
+
+#lightbox_overlay {
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  background:black url(img/loader.gif) no-repeat scroll center center;
+}
+
+#lightbox {
+    position: absolute;
+}
+
+
+// Gallery
+@gallery-padding: 10px;
+@gallery-width: 600px;
+@gallery-height: @gallery-width / (4 / 3) + @gallery-padding * 3px;
+@gallery-bg-color: #333;
+@gallery-small-image-size: 40px;
+
+.gallery {
+    width: @gallery-width;
+    min-height: @gallery-height;
+    padding: @gallery-padding;
+    /*background-color: @gallery-bg-color;*/
+    border: 6px dotted salmon;
+    margin: 0 auto;
+    margin-bottom: 1em;
+
+    .gallery-current {
+        height: @gallery-height - 80 - @gallery-padding*3;
+        width: @gallery-width - @gallery-padding*2;
+        margin: 0 auto;
+        margin-bottom: @gallery-padding;
+
+        img {
+            width: 580px;
+            display: block;
+            margin: 0 auto;
+            padding: 0;
+            float: none;
+        }
+    }
+    .gallery-all {
+        .clearfix();
+        width: @gallery-width - @gallery-padding*2;
+        margin: 0 auto;
+
+        img {
+            float: left;
+            border: 1px solid transparent;
+            padding: 3px;
+            width: @gallery-small-image-size;
+            height: @gallery-small-image-size;
+            &:hover, &.selected {
+                border-color: cyan;
+            }
+        }
+    }
+}
+
+// Slideshow
+@slideshow-width: 800px;
+@slideshow-height: 200px;
+@slideshow-bg-color: #eee;
+@slideshow-z-index: 10;
+
+.slideshow {
+    width: @slideshow-width;
+    height: @slideshow-height;
+    background-color: @slideshow-bg-color;
+    position: relative;
+    z-index: @slideshow-z-index;
+    img {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        width: @slideshow-width;
+        height: @slideshow-height;
     }
 }

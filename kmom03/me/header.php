@@ -27,6 +27,7 @@
         <ul class="right">
             <li><a href="index.php">Home</a></li>
             <li><a href="report.php">Reports</a></li>
+            <li><a href="lazyloadimages.php">Lazy load images</a></li>
         </ul>
     </nav>
 
