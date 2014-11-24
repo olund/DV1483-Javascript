@@ -1,10 +1,6 @@
 $(document).ready(function () {
     'use strict';
 
-    $('.box').click(function(event) {
-        $(this).
-    });
-
 
     /**
      * Assignment 1

@@ -1,4 +1,10 @@
 ##Usage
+Lazyload-Images depends on jQuery. Include them both at the end of your HTML code:
+```
+<script src="jquery.js" type="text/javascript"></script>
+<script src="jquery.lazyload-images.js" type="text/javascript"></script>
+```
+
 Use a placeholder image in the src attribute - something to be displayed while the original loads
 - and include the actual image source in a "data-src" attribute.
 
@@ -10,13 +16,13 @@ Use a placeholder image in the src attribute - something to be displayed while t
 Run the script on document ready:
 
 ```
-$(document).ready(fcuntion() {
+$(document).ready(function() {
     $('img').lazyLoadImages();
 });
 ```
 
 ##Threshold
-By default, imgaes are loaded when the user scrolls to them.
+By default, images are loaded when the user scrolls to them.
 
 If you want your images to load earlier than, lets say 300px before they appear on the screen, you can set the threshold like this:
 ```
@@ -38,3 +44,6 @@ $("img").lazyLoadImages(300, function() {
     });
 });
 ```
+
+##Download
+[Get it here](http://www.student.bth.se/~heoa13/js/kmom03/me/js/jquery.lazyload-images.js)

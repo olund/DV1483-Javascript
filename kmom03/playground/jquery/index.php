@@ -83,7 +83,6 @@
             <img data-src='img/6.jpg' alt="gallery-img"/>
         </div>
     </div> <!-- end of gallery -->
-    <p>An image gallery may look in many ways but it usually acts as a container for a bunch om images and allows for the user to easily traverse and look at the images.</p>
 </div>
 
 

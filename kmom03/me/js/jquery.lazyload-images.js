@@ -8,15 +8,16 @@
 
     $.fn.lazyLoadImages = function(threshold, callback) {
 
-        var attrib = "data-src",
+        var ATTRIBUTE = "data-src",
             images = this,
-            loaded;
+            loaded,
+            DEBUG = false;
 
         // If threshold is not set, use 0.
         threshold = threshold || 0,
 
         this.one("lazyLoadImages", function() {
-            var source = this.getAttribute(attrib);
+            var source = this.getAttribute(ATTRIBUTE);
             if (source) {
                 // Set the src attribute to the real source.
                 this.setAttribute("src", source);
@@ -25,27 +26,37 @@
                 if (typeof callback === "function") {
                     callback.call(this);
                 }
+            } else {
+                console.log("Missing " + ATTRIBUTE + " on <img>");
             }
         });
 
 
         function lazyLoadImages() {
-            var inview = images.filter(function() {
+            var imagesInView = images.filter(function() {
                 var scrollTopPos = $(window).scrollTop(),
-                    wb = scrollTopPos + $(window).height(),
-                    et = $(this).offset().top,
-                    eb = et + $(this).height();
+                    windowB = scrollTopPos + $(window).height(), // browser viewport height + scrollTopPos
+                    elementTopPos = $(this).offset().top,
+                    elementB = elementTopPos + $(this).height();
 
-
-                // THE CALCULATION
-                if (eb >= (scrollTopPos - threshold) && et <= (wb + threshold)) {
-                    return true;
+                if (DEBUG) {
+                    // THE CALCULATION
+                    if (elementB >= (scrollTopPos - threshold) && elementTopPos <= (windowB + threshold)) {
+                        console.log("scrollTopPos", scrollTopPos);
+                        console.log("windowB: ", windowB);
+                        console.log("elementTopPos: ", elementTopPos);
+                        console.log("elementB: ", elementB);
+                        console.log("THIS.height()", $(this).height());
+                        console.log("elementB >= (scrollTopPos - threshold) && elementTopPos <= (windowB + threshold)", elementB >= (scrollTopPos - threshold) && elementTopPos <= (windowB + threshold));
+                        return true;
+                    }
+                    return false;
                 }
 
-                return false;
+                return elementB >= (scrollTopPos - threshold) && elementTopPos <= (windowB + threshold);
             });
 
-            loaded = inview.trigger("lazyLoadImages");
+            loaded = imagesInView.trigger("lazyLoadImages");
             images = images.not(loaded);
         }
 

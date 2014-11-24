@@ -25,6 +25,7 @@
 
                 <h2>Demo</h2>
                 <p>Scroll down to see it working</p>
+                <b>MAKE SURE TO CLEAR YOUR CACHE IF YOU WANT TO SEE IT AGAIN.</b>
 
                 <ul>
                     <li><img data-src="http://lorempixel.com/g/800/500/sports/1" src="img/loader.gif" /></li>
