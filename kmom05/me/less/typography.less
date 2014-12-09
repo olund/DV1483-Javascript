@@ -1,0 +1,22 @@
+/** --------------------------------------------------------------
+ * Typography.
+ *
+ */
+@font-family-helvetica: Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-monospace: monospace;
+@font-family-roboto: 'Raleway', sans-serif;
+@magic-number: 22px; /* 16px - 100%/1.375 */
+body{color:#222;font:100.01%/1.375 @font-family-roboto;}
+p{margin-bottom:@magic-number;}
+b,strong{font-weight:bold;}
+i,em{font-style:italic;}
+pre,code{font:1em/1.375 @font-family-monospace;}
+
+/* headers */
+h1{font-size:2.375em;line-height:1.1579;margin-bottom:@magic-number;}
+
+/* Lists */
+li ul,li ol{margin:0;}
+ul,ol{margin:0.6875em 1.5em 1.375em 0;padding-left:1.5em;}
+ul{list-style-type:disc;}
+ol{list-style-type:decimal;}
