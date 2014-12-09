@@ -1,0 +1,61 @@
+@import '../template/base.less';
+
+.purchase {
+    display: inline-block;
+    position: relative;
+    width: 120px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 1px;
+    font-size: 0.9em;
+    background-color: #fff;
+    color: #646464;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+b {
+
+}
+
+label {
+    font-size:small;
+}
+
+.validation-message {
+    font-style: italic;
+    color:#999;
+    font-size: smaller;
+}
+.success{
+    background: #afa;
+    padding: 1em;
+}
+.error {
+    background: salmon;
+    padding:1em;
+}
+.working {
+    background: cyan;
+    padding: 1em;
+}
+
+.cform-columns-2 {
+    .cform-column-1 {
+        float: left;
+        width: 50%;
+    }
+    .cform-column-2 {
+        float: left;
+        width: 50%;
+    }
+    .cform-buttonbar {
+        clear: both;
+        padding: 1em;
+        border: 5px solid salmon;
+    }
+    p {
+        margin-bottom: 0;
+    }
+}
