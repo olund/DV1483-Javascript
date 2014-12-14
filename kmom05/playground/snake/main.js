@@ -60,7 +60,9 @@ window.addEventListener('keydown', function (event) {
 function Snake() {
     this.size = 10;
     this.length = 10;
+    this.score = 0;
     this.arr = [];
+    this.life = 1;
     this.direction = 'right';
 
     for (var i = this.length - 1; i >= 0; i--) {
@@ -88,33 +90,56 @@ Snake.prototype = {
 
     },
 
-    collision: function(width, height, headX, headY) {
-        // wall Collision
+    collision: function(width, height, food) {
+
         if (this.headX >= width / this.size || this.headX <= -1 || this.headY >= height / this.size || this.headY <= -1) {
-            // GAME OVER
-            console.log("GAME OVER...");
+            // wall Collision
+            console.log("HIt the wall, game over");
+            this.life--;
         }
+
+        // Food collision
+        if (this.headX === food.x && this.headY === food.y) {
+
+            // Make the snake bigger
+            var tail = {
+                x: this.headX,
+                y: this.headY
+            };
+            this.arr.unshift(tail);
+
+            // Update score
+            this.score += 10;
+            document.getElementById('score').innerHTML = "Score: " + this.score;
+
+            return 1;
+        } else {
+            // Collision between snake parts
+            for (var i = 2; i < this.arr.length; i++) {
+                var s = this.arr[i];
+                if (this.headX === s.x && this.headY === s.y) {
+                    console.log("HIT MYSELF, Game over!");
+                    this.life--;
+                }
+            }
+        }
+
+        return 0;
     },
 
-    directions: function(headX, headY) {
-        // DIRECTIONS
-        var headX = this.arr[0].x;
-            headY = this.arr[0].y;
-
+    directions: function() {
         if (this.direction === 'right') {
-            headX++;
+            this.headX++;
         } else if (this.direction === 'left') {
-            headX--;
+            this.headX--;
         } else if (this.direction === 'up') {
-            headY--;
+            this.headY--;
         } else if (this.direction === 'down') {
-            headY++;
+            this.headY++;
         }
     },
 
-    update: function(td, width, height, headX, headY) {
-
-
+    update: function(td, width, height) {
 
         if (Key.isDown(Key.UP) && this.direction != 'down') {
             this.direction = 'up';
@@ -129,22 +154,11 @@ Snake.prototype = {
             this.direction = 'right';
         }
 
-
-
-
         // Move the snake
         var tail = this.arr.pop();
-        tail.x = headX;
-        tail.y = headY;
+        tail.x = this.headX;
+        tail.y = this.headY;
         this.arr.unshift(tail); // unshift adds new items to the beginning of the array.
-
-        /*// wall Collision
-        if (headX >= width / this.size || headX <= -1 || headY >= height / this.size || headY <= -1) {
-            // GAME OVER
-            console.log("GAME OVER...");
-        }*/
-
-
 
     },
 
@@ -155,17 +169,16 @@ Snake.prototype = {
 /**
  * The food for the snake..
  */
-function Food(width) {
+function Food(width, height) {
     this.size = 10;
-    //this.x = Math.round(Math.random() * (width - this.size) / this.size);
-    //this.y = Math.round(Math.random() * (width - this.size) / this.size);
-    this.x = 1;
-    this.y = 2;
+    this.x = Math.round(Math.random() * (width - this.size) / this.size);
+    this.y = Math.round(Math.random() * (height - this.size) / this.size);
+
     this.color = [
         'green',
         'blue',
         'red',
-        'black',
+        'pink',
         'yellow',
         'cyan',
         'salmon'
@@ -174,8 +187,8 @@ function Food(width) {
 
 Food.prototype = {
     draw: function(ct) {
-        //ct.fillStyle = this.randomColor();
-        ct.fillStyle = "cyan";
+        ct.fillStyle = this.randomColor();
+        /*ct.fillStyle = "cyan";*/
         ct.fillRect(this.x * this.size, this.y * this.size, this.size, this.size);
     },
 
@@ -184,33 +197,6 @@ Food.prototype = {
     }
 
 };
-
-function foodCollision(snake, food, headX, headY) {
-    var tail;
-    if (headX === food.x && headY === f.y) {
-        food = new Food();
-        tail = {x: headX, y: headY };
-        snake.unshift(tail);
-
-        //score += 10;
-
-        //Increase speed
-        if (speed <= 45) {
-            speed++;
-        }
-    }
-}
-
-/*
-function GameMessages() {
-    this.messages = [
-        "You broke your head!",
-        "The wall is stronger than it seems!",
-        "There's no way to escape the game...",
-        "LOOK MA! NO HEAD..!!",
-        "Can't see the wall? Huh?"
-    ];
-}*/
 
 /**
  * Snake, the Game
@@ -224,10 +210,9 @@ window.SnakeTheGame = (function(){
         width,
         height,
         speed,
-        score;
+        score,
+        background;
 
-    var headX,
-        headY;
     /**
      * Initializes the game
      */
@@ -236,12 +221,8 @@ window.SnakeTheGame = (function(){
         ct = canvas.getContext('2d');
         width = canvas.width;
         height = canvas.height;
-
         snake = new Snake();
-        headX = Snake.arr[0].x;
-        headY = Snake.arr[0].y;
-        food = new Food(width);
-
+        food = new Food(width, height);
         console.log('init the game...');
     };
 
@@ -249,18 +230,32 @@ window.SnakeTheGame = (function(){
      * Updates the game
      */
     var update = function(td) {
-        snake.update(td, width, height, headX, headY);
-        snake.collision(width, height);
-        snake.directions(headX, headY);
+        snake.update(td, width, height);
+        var moar = snake.collision(width, height, food);
+        snake.directions();
+        if (moar > 0) {
+            // Create new food
+            food = new Food(width, height);
+        }
     };
 
     /**
      * Render
      */
     var render = function() {
-        ct.clearRect(0, 0, width, height);
-        snake.draw(ct);
-        food.draw(ct);
+        if (snake.life > 0) {
+            ct.clearRect(0, 0, width, height);
+            snake.draw(ct);
+            food.draw(ct);
+        } else {
+            ct.font = "40px Raleway";
+            ct.fillStyle = "#F44336";
+            var score = document.getElementById('score').innerHTML;
+            ct.fillText("GAME OVER! SCORE: " + score, 200, 200);
+            var audio = document.getElementById("audio1");
+            audio.pause();
+        }
+
     };
 
     /**
@@ -270,9 +265,13 @@ window.SnakeTheGame = (function(){
         var now = Date.now();
         td = (now - (lastGameTick || now)) / 10000;
         lastGameTick = now;
-        requestAnimFrame(gameLoop);
-        update(td);
-        render();
+        setTimeout(function() {
+            requestAnimFrame(gameLoop);
+            update(td);
+            render();
+        }, 20);
+
+
     };
 
     return {
@@ -285,21 +284,21 @@ window.SnakeTheGame = (function(){
 $(document).ready(function () {
     'use strict';
 
-    //var start = $("<h1 class='start'>GAME IS STARTING IN 3 SECONDS</h1>").insertBefore('#canvas');
-    /*var audio = document.getElementById("audio1");
+    var start = $("<h1 class='start'>GAME IS STARTING IN 2 SECONDS</h1>").insertBefore('#canvas');
+    var audio = document.getElementById("audio1");
     audio.volume = 0.05;
-    audio.play();*/
+    audio.play();
 
-    /*var background = new Image();
-    background.src = "img/black_mamba.jpg";
-    context.drawImage(bark, -5, -50, 10, 50);*/
 
-    /*setTimeout(function() {
+
+    setTimeout(function() {
         start.fadeOut('slow', function() {
-            Snake.init('canvas');
-            Snake.gameLoop();
+            SnakeTheGame.init('canvas');
+            SnakeTheGame.gameLoop();
         });
-    }, 3000);*/
-    SnakeTheGame.init('canvas');
-    SnakeTheGame.gameLoop();
+    }, 2000);
+
+    $('#restart').on('click', function() {
+        location.reload();
+    });
 });
