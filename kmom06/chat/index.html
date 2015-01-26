@@ -1,20 +1,106 @@
 <!doctype html>
 <html>
-<head>
+  <head>
     <title>Socket.IO chat</title>
-    <link rel="stylesheet" href="stylesheet.css">
-</head>
-<body>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+        .name {
+            font: 2em Helvetica, Arial;
+            background-color: transparent;
+            color: white;
+            font-size: 20px;
+            font-family: Courier, monospace;
+            height: 28px;
+            font-weight: bold;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            z-index: 100;
+            margin-top: -200px;
+            width: 600px;
+            margin-left: -300px;
+        }
+        input.name {
+            border-bottom: 1px solid white;
+        }
 
-    <input id="name" type="text">
+        input.name:focus {
+            border-color: #00ffcd;
+            outline: none;
+        }
 
-    <ul id="messages"></ul>
-    <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+        input {
+            border: none;
+            outline: none;
+        }
+        .black {
+            background: black;
+        }
+        .chat { display: none; }
+
+        h1.name {
+            color: #ff4d00;
+            font-size: 28px;
+            margin-top: -250px;
+        }
+    </style>
+  </head>
+  <body class="black">
+    <h1 class="name">Enter your name: </h1>
+    <input type="text" class="name" id="name" type="text" autofocus>
+
+    <div class="chat">
+        <ul id="messages"></ul>
+        <form action="">
+          <input type="text" id="m" autocomplete="off" /><button>Send</button>
+        </form>
+    </div>
 
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
-    <script src="../main.js"></script>
+
+    <script>
+        var socket = io(),
+            msgBox = $('#m'),
+            messages = $('#messages'),
+            chat = $('.chat'),
+            name = $('#name');
+
+
+        $('form').submit(function() {
+            socket.emit('chat message', msgBox.val());
+            msgBox.val('');
+            return false;
+        });
+
+        socket.on('chat message', function(message) {
+            messages.append($('<li>').text(message));
+        });
+
+        socket.on('connect', function(message) {
+            messages.append($('<li>').text(message));
+        });
+
+        socket.on('disconnect', function(message) {
+            messages.append($('<li>').text(message));
+        });
+
+        $('#name').keyup(function (event) {
+            if (event.keyCode === 13) {
+                $('body').removeClass('black');
+                $('.name').css('display', 'none');
+                chat.css('display', 'initial');
+            }
+        });
+
+    </script>
+
   </body>
 </html>

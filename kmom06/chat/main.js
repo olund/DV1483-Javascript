@@ -1,7 +1,19 @@
 $(document.ready(function() {
     var socket = io(),
+    name = $('#name'),
     msgBox = $('#m'),
-    messages = $('#messages');
+    messages = $('#messages'),
+    chat = $('chat');
+
+
+    $('#name').keyup(function (event) {
+        console.log(event);
+        if (event.keyCode === 13) {
+            console.log('kördes');
+            chat.css('display', 'initial');
+        }
+    });
+
 
 
     $('form').submit(function() {
@@ -22,6 +34,6 @@ $(document.ready(function() {
         messages.append($('<li>').text(message));
     });
 
-
+    console.log('ready');
 }));
 

@@ -20,11 +20,10 @@ io.on('connection', function(socket) {
 
     socket.on('chat message', function(message) {
         io.emit('chat message', message);
-        console.log('NEW MESSAGE: ' + message);
+        console.log('NEW MESSAGE: ', message);
     });
-
-
 });
+
 
 
 http.listen(3000, function(){
