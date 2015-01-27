@@ -105,7 +105,10 @@ $(document).ready(function () {
                     .html('<p>' + data.output + '</p>' + errors);
 
                 // Clear the cart after a buy
-                self.emptyCart();
+                if (errors === '') {
+                    self.emptyCart();
+                }
+
 
                 console.log('Ajax request returned successfully. ', data);
 

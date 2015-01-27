@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Olunds Chat</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font: 13px Helvetica, Arial; }
         form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
         form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        form button { width: 9%; background: #76FF03; border: none; padding: 10px; }
         #messages { list-style-type: none; margin: 0; padding: 0; }
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { background: #eee; }
@@ -50,6 +50,30 @@
             font-size: 28px;
             margin-top: -250px;
         }
+
+        .usersArea {
+            float: left;
+            width: 20%;
+            padding-left: 10px;
+            padding-top: 10px;
+        }
+
+        ul#people li {
+            padding-bottom: 5px;
+        }
+
+        .messageArea {
+            float: right;
+            width: 80%;
+        }
+        .clear {
+            clear: both;
+        }
+
+        .text-success {
+
+        }
+
     </style>
   </head>
   <body class="black">
@@ -57,8 +81,15 @@
     <input type="text" class="name" id="name" type="text" autofocus>
 
     <div class="chat">
-        <ul id="messages"></ul>
-        <form action="">
+        <div class="usersArea">
+            <ul id="people"></ul>
+        </div>
+
+        <div class="messageArea">
+            <ul id="messages"></ul>
+        </div>
+
+        <form class="clear" action="">
           <input type="text" id="m" autocomplete="off" /><button>Send</button>
         </form>
     </div>
@@ -71,33 +102,60 @@
             msgBox = $('#m'),
             messages = $('#messages'),
             chat = $('.chat'),
-            name = $('#name');
+            name = $('#name'),
+            ready = false;
+
+        /* User JOIN */
+        $('#name').keyup(function (event) {
+            if (event.keyCode === 13) {
+                var userName = $(this).val();
+
+                if (name !== '') {
+                    socket.emit('join', userName);
+                    ready = true;
+
+                    $('body').removeClass('black');
+                    $('.name').css('display', 'none');
+                    chat.css('display', 'initial');
+                }
+            }
+        });
 
 
-        $('form').submit(function() {
-            socket.emit('chat message', msgBox.val());
+
+        $('form').submit(function () {
+            socket.emit('send', msgBox.val());
             msgBox.val('');
             return false;
         });
 
-        socket.on('chat message', function(message) {
-            messages.append($('<li>').text(message));
-        });
-
-        socket.on('connect', function(message) {
-            messages.append($('<li>').text(message));
-        });
-
-        socket.on('disconnect', function(message) {
-            messages.append($('<li>').text(message));
-        });
-
-        $('#name').keyup(function (event) {
-            if (event.keyCode === 13) {
-                $('body').removeClass('black');
-                $('.name').css('display', 'none');
-                chat.css('display', 'initial');
+        /* UPDATE */
+        socket.on('update', function (message) {
+            if(ready) {
+                messages.append('<li>' + message + '</li>');
             }
+        });
+
+        /* UPDATE PEOPLE */
+        socket.on('update-people', function (people) {
+            if (ready) {
+                $('#people').empty();
+                $.each(people, function(clientid, name) {
+                    $('#people').append('<li>' + name + '</li>');
+                });
+            }
+        });
+
+        /* CHAT */
+        socket.on('chat', function(who, message){
+            if(ready) {
+                messages.append("<li><strong><span class='text-success'>" + who + "</span></strong>: " + message + "</li>");
+            }
+        });
+
+        // User disconnects.
+        socket.on('disconnect', function (message) {
+            messages.append($('<li>').text(message));
         });
 
     </script>
