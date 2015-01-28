@@ -1,7 +1,11 @@
 var app = require('express')(),
     http = require('http').Server(app),
     io = require('socket.io')(http),
+    express = require('express');
     users = {};
+
+
+app.use(express.static(__dirname + '/public'));
 
 
 app.get('/', function(req, res){
@@ -23,8 +27,29 @@ io.on('connection', function(socket) {
         io.sockets.emit('update-people', users);
     });
 
+    socket.on('command', function (cmd) {
+        switch (cmd.command) {
+            case 'nick':
+                io.sockets.emit('update', users[socket.id] + ' changed their nick to: ' + cmd.nick);
+                users[socket.id] = cmd.nick;
+                io.sockets.emit('update-people', users);
+
+            break;
+
+            case 'me':
+                // username + ' command'
+                var msg = "<b style='color: red;'>" + cmd.nick + "</b>" + ": " + cmd.arg;
+                io.sockets.emit('update', msg);
+            break;
+        }
+    });
+
     socket.on('send', function (message) {
-        io.sockets.emit('chat', users[socket.id], message);
+        io.sockets.emit('chat', {
+            who: users[socket.id],
+            message: message,
+            date: new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1"),
+        });
     });
 
     socket.on('disconnect', function () {

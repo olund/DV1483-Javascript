@@ -1,0 +1,78 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-size: 14px; font-family: 'Montserrat', sans-serif; }
+form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+form button { width: 9.5%; background: #607D8B; border: none; padding: 10px; }
+#messages { list-style-type: none; margin: 0; padding: 0; }
+#messages li { padding: 5px 10px; }
+/*#messages li:nth-child(odd) { background: #eee; }*/
+.name {
+    font: 2em Helvetica, Arial;
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    font-family: Courier, monospace;
+    height: 28px;
+    font-weight: bold;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 100;
+    margin-top: -200px;
+    width: 600px;
+    margin-left: -300px;
+}
+input.name {
+    border-bottom: 1px solid white;
+}
+
+input.name:focus {
+    border-color: #00ffcd;
+    outline: none;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+.black {
+    background: black;
+}
+.darkgrey {
+    background: #607D8B;
+}
+
+.chat { display: none; }
+
+h1.name {
+    color: #ff4d00;
+    font-size: 28px;
+    margin-top: -250px;
+}
+
+.usersArea {
+    height: 100vh;
+    border-right: 1px solid white;
+    float: left;
+    width: 20%;
+    padding-left: 10px;
+    padding-top: 10px;
+    max-width: 300px;
+}
+
+ul#people li {
+    padding-bottom: 5px;
+}
+
+.messageArea {
+    float: right;
+    width: 80%;
+}
+.clear {
+    clear: both;
+}
+
+.text-success {
+    color: #00E676;
+}
